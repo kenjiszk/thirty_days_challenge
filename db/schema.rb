@@ -32,10 +32,11 @@ ActiveRecord::Schema.define(version: 2019_04_28_050433) do
 
   create_table "challenges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "format"
+    t.integer "format", default: 0
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_challenges_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 

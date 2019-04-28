@@ -13,6 +13,12 @@ module Api
         render json: { status: 'SUCCESS', data: params }
       end
 
+      def challenges
+        user = User.find_by!(uuid: params[:user_uuid])
+        challenges = user.challenges
+        render json: {status: 'SUCCESS', data: challenges}
+      end
+
       private
 
       def user_params
