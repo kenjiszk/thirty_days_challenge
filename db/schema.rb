@@ -14,17 +14,18 @@ ActiveRecord::Schema.define(version: 2019_04_28_050433) do
 
   create_table "challenge_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "challenge_id"
-    t.bigint "frame_num"
-    t.string "s3_key"
-    t.string "date"
+    t.bigint "frame_num", null: false
+    t.string "s3_key", null: false
+    t.string "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["challenge_id", "frame_num"], name: "index_challenge_details_on_challenge_id_and_frame_num", unique: true
     t.index ["challenge_id"], name: "index_challenge_details_on_challenge_id"
   end
 
   create_table "challenge_summaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "challenge_id"
-    t.string "s3_key"
+    t.string "s3_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_challenge_summaries_on_challenge_id"
@@ -33,7 +34,7 @@ ActiveRecord::Schema.define(version: 2019_04_28_050433) do
   create_table "challenges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "format", default: 0
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "name"], name: "index_challenges_on_user_id_and_name", unique: true

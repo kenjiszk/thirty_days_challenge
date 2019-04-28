@@ -11,11 +11,17 @@ module Api
         render json: { status: challenge.save!}
       end
 
+      def details
+        details = ChallengeDetail.where(challenge_id: params[:challenge_id])
+        render json: { status: details }
+      end
+
       private
 
       def challenge_params
         params.permit(:uuid, :name, :format)
       end
+
     end
   end
 end

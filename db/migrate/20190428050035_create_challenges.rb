@@ -3,7 +3,7 @@ class CreateChallenges < ActiveRecord::Migration[5.2]
     create_table :challenges do |t|
       t.references :user, foreign_key: true
       t.integer :format, default: 0
-      t.string :name
+      t.string :name, :null => false
 
       t.timestamps
     end

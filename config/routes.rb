@@ -4,7 +4,10 @@ Rails.application.routes.draw do
       resources :users, param: :uuid, :only => [:show, :create] do
         get 'challenges'
       end
-      resources :challenges, :only => [:create]
+      resources :challenges, :only => [:create] do
+        get 'details'
+      end
+      resources :challenge_details, :only => [:show, :create]
     end
   end
 end
