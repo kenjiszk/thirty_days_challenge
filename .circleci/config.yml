@@ -1,0 +1,40 @@
+version: 2.0
+
+jobs:
+  test:
+    parallelism: 3
+    working_directory: ~/app
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+          TZ: Asia/Tokyo
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES --innodb-file-format=Barracuda --innodb-file-per-table --innodb-large-prefix
+    steps:
+      - checkout
+      - run: bundle -v
+      - run:
+          name: install mysql-client
+          command: sudo apt-get -y install mysql-client
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+      - run: bin/rails db:create db:migrate
+      - run: |
+          bundle exec rspec --profile 10 \
+                            --format progress \
+                            --format RspecJunitFormatter \
+                            --out test-results/results.xml \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - test
