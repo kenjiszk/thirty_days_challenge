@@ -20,7 +20,14 @@ jobs:
     steps:
       - checkout
       - run: bundle -v
+      - restore_cache:
+          keys:
+            - bundle-v2-{{ checksum "Gemfile.lock" }}
       - run: bundle check || bundle install --clean
+      - save_cache:
+          key: bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: install mysql-client
           command: sudo apt-get -y install mysql-client
@@ -29,11 +36,7 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
       - run: bin/rails db:create db:migrate
       - run: |
-          bundle exec rspec --profile 10 \
-                            --format progress \
-                            --format RspecJunitFormatter \
-                            --out test-results/results.xml \
-                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          bundle exec rspec
 workflows:
   version: 2
   build-deploy:
