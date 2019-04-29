@@ -3,14 +3,24 @@ module Api
     class ChallengeSummariesController < ApplicationController
       protect_from_forgery with: :null_session
       def show
-        render json: { detail: ChallengeSummary.find_by!(params[:id])}
+        begin
+          summary = ChallengeSummary.find_by!(params[:id])
+          render json: { summary: summary }, status: 200
+        rescue
+          render json: { status: 'FAILED' }, status: 404
+        end
       end
 
       def create
         summary = ChallengeSummary.new
         summary.challenge_id = summary_params[:challenge_id]
         summary.s3_key = 'https://aaaa.com'
-        render json: {status: summary.save!}
+        begin
+          summary.save!
+          render json: {status: 'SUCCESS'}, status: 201
+        rescue
+          render json: {status: 'FAILED'}, status: 400
+        end
       end
 
       private
