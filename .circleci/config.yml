@@ -20,6 +20,7 @@ jobs:
     steps:
       - checkout
       - run: bundle -v
+      - run: bundle check || bundle install --clean
       - run:
           name: install mysql-client
           command: sudo apt-get -y install mysql-client
