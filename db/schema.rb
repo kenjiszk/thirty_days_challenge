@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_04_28_050433) do
     t.string "s3_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_challenge_summaries_on_challenge_id"
+    t.index ["challenge_id"], name: "index_challenge_summaries_on_challenge_id", unique: true
   end
 
   create_table "challenges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

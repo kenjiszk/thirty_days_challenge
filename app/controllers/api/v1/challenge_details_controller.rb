@@ -10,7 +10,7 @@ module Api
         detail = ChallengeDetail.new
         detail.challenge_id = details_params[:challenge_id]
         detail.frame_num = details_params[:frame_num]
-        detail.s3_key = details_params[:s3_key]
+        detail.s3_key = 'https://aaa.com'
         detail.date = details_params[:date]
         render json: {status: detail.save!}
       end
@@ -18,7 +18,7 @@ module Api
       private
 
       def details_params
-        params.permit(:challenge_id, :frame_num, :s3_key, :date)
+        params.permit(:challenge_id, :frame_num, :date)
       end
     end
   end
