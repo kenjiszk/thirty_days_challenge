@@ -3,7 +3,12 @@ module Api
     class ChallengeDetailsController < ApplicationController
       protect_from_forgery with: :null_session
       def show
-        render json: { detail: ChallengeDetail.find_by!(params[:id])}
+        begin
+          detail = ChallengeDetail.find_by!(params[:id])
+          render json: { detail: detail }
+        rescue
+          render json: { status: 'FAILED'}, status: 404
+        end
       end
 
       def create
@@ -12,7 +17,12 @@ module Api
         detail.frame_num = details_params[:frame_num]
         detail.s3_key = 'https://aaa.com'
         detail.date = details_params[:date]
-        render json: {status: detail.save!}
+        begin
+          detail.save!
+          render json: {status: 'SUCCESS'}, status: 201
+        rescue
+          render json: {status: 'FAILED'}, status: 400
+        end
       end
 
       private
