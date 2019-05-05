@@ -15,7 +15,7 @@ module Api
         user = User.new(user_params)
         begin
           user.save!
-          render json: { status: 'SUCCESS' }, status: 201
+          render json: {user: {id: user.id}}, status: 201
         rescue
           render json: { status: 'FAILED' }, status: 400
         end
