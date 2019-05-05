@@ -42,5 +42,6 @@ module ThirtyDaysChallenge
 
     config.api_only = true
     config.middleware.use ActionDispatch::Flash
+    config.assets.precompile = []
   end
 end
