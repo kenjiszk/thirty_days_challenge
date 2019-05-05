@@ -17,6 +17,7 @@ test:
 
 production:
   <<: *default
-  database: thirty_days_challenge_production
-  username: thirty_days_challenge
-  password: <%= ENV['THIRTY_DAYS_CHALLENGE_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
