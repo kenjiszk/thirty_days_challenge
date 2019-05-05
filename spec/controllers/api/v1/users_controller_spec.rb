@@ -22,6 +22,7 @@ describe Api::V1::UsersController, type: :controller do
     it 'user create' do
       post :create, params: { uuid: 'bbbbbbbb' }
       expect(response.status).to eq 201
+      expect(JSON.parse(response.body)['user']['id'].to_s).to match(/[0-9]/)
     end
   end
   describe 'GET #challenges' do
