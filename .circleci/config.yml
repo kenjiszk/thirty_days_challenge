@@ -32,7 +32,7 @@ jobs:
           name: install mysql-client
           command: |
             sudo apt-get update
-            sudo apt-get -y install mysql-client
+            sudo apt-get -y install default-mysql-client
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
