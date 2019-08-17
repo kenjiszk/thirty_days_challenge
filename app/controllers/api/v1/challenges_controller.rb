@@ -10,7 +10,7 @@ module Api
           challenge.name = challenge_params[:name]
           challenge.format = challenge_params[:format]
           challenge.save!
-          render json: { status: 'SUCCESS'}, status: 201
+          render json: { status: 'SUCCESS', challenge_id: challenge.id}, status: 201
         rescue
           render json: { status: 'FAILED'}, status: 400
         end
