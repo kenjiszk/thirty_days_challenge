@@ -18,12 +18,12 @@ describe Api::V1::ChallengeSummariesController, type: :controller do
   end
   describe 'POST #create' do
     it 'create detail' do
-      post :create, params: { challenge_id: @challenge.id, s3_key: 'https://aaa.com' }
+      post :create, params: { challenge_id: @challenge.id, url: 'https://aaa.com' }
       expect(response.status).to eq 201
     end
     it 'cannnot create create detail twice' do
-      post :create, params: { challenge_id: @challenge.id, s3_key: 'https://aaa.com' }
-      post :create, params: { challenge_id: @challenge.id, s3_key: 'https://aaa.com' }
+      post :create, params: { challenge_id: @challenge.id, url: 'https://aaa.com' }
+      post :create, params: { challenge_id: @challenge.id, url: 'https://aaa.com' }
       expect(response.status).to eq 400
     end
   end

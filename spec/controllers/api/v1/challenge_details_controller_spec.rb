@@ -18,12 +18,12 @@ describe Api::V1::ChallengeDetailsController, type: :controller do
   end
   describe 'POST #create' do
     it 'create detail' do
-      post :create, params: { challenge_id: @challenge.id, frame_num: 0, s3_key: 'https://aaa.com', date: '2019/04/29' }
+      post :create, params: { challenge_id: @challenge.id, frame_num: 0, url: 'https://aaa.com', date: '2019/04/29' }
       expect(response.status).to eq 201
     end
     it '2nd create detail' do
-      post :create, params: { challenge_id: @challenge.id, frame_num: 1, s3_key: 'https://aaa.com', date: '2019/04/29' }
-      post :create, params: { challenge_id: @challenge.id, frame_num: 1, s3_key: 'https://aaa.com', date: '2019/04/29' }
+      post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://aaa.com', date: '2019/04/29' }
+      post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://aaa.com', date: '2019/04/29' }
       expect(response.status).to eq 400
     end
   end
