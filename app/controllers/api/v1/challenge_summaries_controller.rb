@@ -14,7 +14,7 @@ module Api
       def create
         summary = ChallengeSummary.new
         summary.challenge_id = summary_params[:challenge_id]
-        summary.s3_key = 'https://aaaa.com'
+        summary.url = 'https://aaaa.com'
         begin
           summary.save!
           render json: {status: 'SUCCESS'}, status: 201
