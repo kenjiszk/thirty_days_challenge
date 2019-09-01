@@ -12,17 +12,23 @@ module Api
       end
 
       def create
-        detail = ChallengeDetail.find_or_create_by(
-          challenge_id: details_params[:challenge_id],
-          frame_num: details_params[:frame_num],
-          url: details_params[:url],
-          date: details_params[:date]
-        )
+        begin
+          detail = ChallengeDetail.find_by!(challenge_id: details_params[:challenge_id], frame_num: details_params[:frame_num])
+          detail.url = details_params[:url]
+          detail.date = details_params[:date]
+        rescue
+          detail = ChallengeDetail.create(
+            challenge_id: details_params[:challenge_id],
+            frame_num: details_params[:frame_num],
+            url: details_params[:url],
+            date: details_params[:date]
+          )
+        end
         begin
           detail.save!
           render json: {status: 'SUCCESS'}, status: 201
         rescue
-          render json: {status: 'FAILED'}, status: 400
+          render json: {status: 'FAILED'}, status: 404
         end
       end
 

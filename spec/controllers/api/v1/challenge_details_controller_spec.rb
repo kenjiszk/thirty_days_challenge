@@ -23,7 +23,7 @@ describe Api::V1::ChallengeDetailsController, type: :controller do
     end
     it '2nd create detail' do
       post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://aaa.com', date: '2019/04/29' }
-      post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://aaa.com', date: '2019/04/29' }
+      post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://bbb.com', date: '2019/04/29' }
       expect(response.status).to eq 201
     end
   end
