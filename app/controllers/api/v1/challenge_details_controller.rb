@@ -28,7 +28,7 @@ module Api
           detail.save!
           render json: {status: 'SUCCESS'}, status: 201
         rescue
-          render json: {status: 'FAILED'}, status: 404
+          render json: {status: 'FAILED'}, status: 400
         end
       end
 
