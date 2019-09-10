@@ -4,6 +4,7 @@ describe Api::V1::ChallengeDetailsController, type: :controller do
   before(:each) do
     @user = create(:user)
     @challenge = create(:challenge, user_id: @user.id)
+    @challenge_detail = create(:challenge_detail, challenge_id: @challenge.id)
   end
   describe 'GET #show' do
     it 'not found' do
@@ -11,8 +12,7 @@ describe Api::V1::ChallengeDetailsController, type: :controller do
       expect(response.status).to eq 404
     end
     it 'found' do
-      create(:challenge_detail, challenge_id: @challenge.id)
-      get :show, params: { id: @challenge.id }
+      get :show, params: { id: @challenge_detail.id }
       expect(response.status).to eq 200
     end
   end
@@ -25,6 +25,16 @@ describe Api::V1::ChallengeDetailsController, type: :controller do
       post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://aaa.com', date: '2019/04/29' }
       post :create, params: { challenge_id: @challenge.id, frame_num: 1, url: 'https://bbb.com', date: '2019/04/29' }
       expect(response.status).to eq 201
+    end
+  end
+  describe 'PATCH #update' do
+    it 'update comment' do
+      patch :update, params: { id: @challenge_detail.id, comment: 'aaaaaaaaaaa' }
+      expect(response.status).to eq 200
+    end
+    it 'details not found' do
+      patch :update, params: { id: 100, comment: 'aaaaaaaaaaa' }
+      expect(response.status).to eq 404
     end
   end
 end

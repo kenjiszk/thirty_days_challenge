@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :challenges, :only => [:create] do
         get 'details'
       end
-      resources :challenge_details, :only => [:show, :create]
+      resources :challenge_details, :only => [:show, :create, :update]
       resources :challenge_summaries, :only => [:show, :create]
     end
   end
