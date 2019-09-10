@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_073715) do
+ActiveRecord::Schema.define(version: 2019_09_10_041409) do
 
   create_table "challenge_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "challenge_id"
     t.bigint "frame_num", null: false
-    t.string "url", null: false
+    t.string "url", default: "", null: false
+    t.text "comment", null: false
     t.string "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
