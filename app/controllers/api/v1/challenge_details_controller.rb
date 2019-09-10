@@ -37,10 +37,11 @@ module Api
         begin
           detail = ChallengeDetail.find_by!(id: update_params[:id])
           detail.comment = update_params[:comment]
-          p details
+          p detail
           detail.save!
           render json: { status: 'SUCCESS' }, status: 200
-        rescue
+        rescue => e
+          p e
           render json: { status: 'FAILED' }, status: 404
         end
       end
